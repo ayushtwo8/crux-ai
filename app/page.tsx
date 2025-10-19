@@ -1,13 +1,15 @@
-import { Badge } from "@/components/ui/badge";
-import { BadgeCheckIcon } from "lucide-react";
+import { auth } from "@clerk/nextjs/server";
+import { redirect } from "next/navigation";
 
-export default function Home() {
+export default async function Home() {
+  
+  const { isAuthenticated } = await auth();
+  if(isAuthenticated){
+    redirect("/dashboard");
+  }
   return (
     <div>
-      <Badge variant="secondary" className="bg-blue-500 text-white dark:bg-blue-600">
-        <BadgeCheckIcon />
-        Verified
-      </Badge>
+      Crux AI
     </div>
   );
 }
